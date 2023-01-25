@@ -1,0 +1,13 @@
+---
+
+- hosts: students
+
+  tasks:
+
+    - name: vars
+      include_vars: vars.yaml
+
+    - name: tasks
+      include_tasks: tasks.yaml
+
+    

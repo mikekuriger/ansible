@@ -1,0 +1,31 @@
+---
+
+  - hosts: all
+    name: install git on remote machines
+
+    tasks:
+      - name: ROOT block
+        become: yes
+        become_user: root
+        block:
+        - name: update cache
+          apt: 
+            update_cache: yes
+        - name: install some packages
+          apt: 
+            name: 
+              - php
+              - nano
+              - python3
+          notify:
+            - sc_msg
+            - sc_msg_2
+
+    handlers:
+      - name: sc_msg
+        debug:
+          msg: "APT is done"
+      
+      - name: sc_msg_2
+        debug:  
+          msg: "Done"

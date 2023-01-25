@@ -1,0 +1,16 @@
+---
+
+- name: Create Parent Directory
+  file:
+    dest: "{{ dir_to_be_created }}"
+    state: directory
+
+- name: create empty file
+  file:
+    dest: "{{ dir_to_be_created }}/{{ student_name }}"
+    state: touch
+
+- name: create file with data
+  copy:
+    dest: "{{ dir_to_be_created }}/{{ student_name }}_text"
+    content: "{{ from_name }} {{ v1 }} {{ v2 }} {{ v3 }}"

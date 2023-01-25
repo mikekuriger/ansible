@@ -1,0 +1,19 @@
+---
+- name: play to copy files
+  hosts: webservers
+  vars:
+    path_to_folder: "/home/ubuntu/mike"
+  tasks: 
+    - name: create path
+      file:
+        path: "{{ path_to_folder }}"
+        state: directory
+
+    - name: copy files from list
+      copy: 
+        src: /home/ubuntu/ansible/copy/{{ item }}
+        dest: "{{path_to_folder}}/{{ item }}"
+      with_items:
+        - a.txt
+        - b.txt
+        - c.txt

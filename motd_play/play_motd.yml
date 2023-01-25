@@ -1,0 +1,36 @@
+---
+
+- hosts: all
+  name: update motd
+  gather_facts: no
+
+  vars: 
+    motd_file_location: "/etc/motd"
+    api_url: "https://catfact.ninja/fact"
+    system_manager: "admin@cats.com"
+
+  tasks:
+    - name: get fact from api
+      uri:
+        url: "{{ api_url }}"
+        return_content: yes
+        body_format: json
+      register: motd_api_content
+      run_once: yes
+
+    - debug:
+        var: motd_api_content.json.fact
+
+    #- name: write file on remote machine
+    #  become: yes
+    #  become_user: root
+    #  copy:
+    #    dest: "{{ motd_file_location }}.1"
+    #    content: "{{ motd_api_content.json.fact }}"
+
+    - name: Send template to remote machine
+      become: yes
+      become_user: root
+      template:
+        src: motd.j2
+        dest: "{{ motd_file_location }}"

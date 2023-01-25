@@ -1,0 +1,8 @@
+database_username = {{ dbUsername }}
+database_password = {{ dbPassword }}
+
+bad_username= [
+    {% for badName in badUsernames %}
+    "{{ badName }}",
+    {% endfor %}
+]

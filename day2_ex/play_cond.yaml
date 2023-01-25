@@ -1,0 +1,57 @@
+---
+- hosts: all
+  name: A conditional play
+
+  vars_prompt:
+
+    - name: age
+      prompt: Enter age
+      private: no
+
+    - name: password
+      prompt: Enter password
+
+  vars:
+    epic: false
+    distro: "Ubuntu"
+    boomer: no
+  
+  pre_tasks:
+    - name: Validate the age variable
+      assert: 
+        fail_msg: "Age must be between 0 and 100"
+        success_msg: "Age is between 0 and 100"
+        that:
+          - age | int >= 0
+          - age | int <= 100
+
+    - name: validate password
+      assert:
+        quiet: true
+        fail_msg: "Password is weak"
+        success_msg: "good"
+        that:
+          - password | length > 6
+  
+  tasks:
+    - name: Task A
+      debug:
+        msg: "Hello A"
+      when: epic and boomer | bool # if epic == true and boomer == true
+
+    - name: Task b
+      debug:
+        msg: "Hello B"
+      when: not epic # if epic != true
+
+    - name: Task c
+      debug:
+        msg: "Hello C"
+      when: epic or distro == "Ubuntu" 
+
+    - name: Task d
+      debug:
+        msg: "Hello D"
+      when: 
+        - epic
+        - boomer | bool or distro == "Ubuntu"

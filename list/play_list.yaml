@@ -1,0 +1,21 @@
+---
+
+- hosts: webservers
+  name: Lists in Ansible
+  tasks:
+    - name: Print names from list
+      debug: 
+        msg: "hello, {{ item }}"
+      with_items:
+        - Mike
+        - Tom
+        - John
+    - name: print list of IPs
+      debug:
+        msg: "hello {{ networkInfo.ip }} gateway is {{ networkInfo.gateway }}"
+      loop_control:
+        loop_var: networkInfo
+      loop:
+        - { ip: "10.10.10.2", gateway: "10.10.10.1" }
+        - { ip: "10.10.10.4", gateway: "10.10.10.3" }
+        - { ip: "10.10.10.6", gateway: "10.10.10.5" }

@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  name: Day 2 ex
+
+  vars_prompt:
+    - name: dest_file_name
+      prompt: "Enter Filename"
+      private: no
+      default: b.ini
+  
+  tasks:
+    - name: Send file
+      copy:
+        src: a.txt
+        dest: "/home/ubuntu/{{ dest_file_name }}"

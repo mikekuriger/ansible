@@ -1,0 +1,36 @@
+---
+- hosts: all
+  name: A template play
+
+  vars_prompt:
+
+    - name: dbPassword
+      prompt: Enter password
+
+  vars:
+    dbUsername: "admin"
+    badUsernames:
+      - hello
+      - admin
+      - delete
+      - new
+  
+  pre_tasks:
+    - name: validate password
+      assert:
+        quiet: true
+        fail_msg: "Password is weak"
+        success_msg: "good"
+        that:
+          - dbPassword | length > 6
+  
+  tasks:
+  - name: create app folder
+    file:
+      path: /home/ubuntu/myApp
+      state: directory
+
+  - name: Send Config file to our servers
+    template:
+      src: config.jn2
+      dest: /home/ubuntu/myApp/config.ini

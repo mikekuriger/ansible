@@ -1,0 +1,43 @@
+---
+
+- hosts: all
+  name: a play with multiple blocks
+
+  vars:
+    v1: true
+    v2: true
+
+  tasks:
+    - name: block a
+      when: v1
+      ignore_errors: yes
+      block:
+        - name: task a
+          debug:
+            msg: "Hello A"
+        - name: fail
+          fail:
+            msg: "failed"
+        - name: task b
+          debug: 
+            msg: "Hello B"
+        - name: task c
+          debug: 
+            msg: "Hello C"
+
+
+    - name: task d
+      debug:  
+        msg: "Hello D"
+      when: v2
+
+    - name: task e
+      debug:  
+        msg: "Hello E"
+      when: v2
+
+    - name: task f
+      debug:  
+        msg: "Hello F"
+      when: v2
+    

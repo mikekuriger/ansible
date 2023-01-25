@@ -1,0 +1,29 @@
+---
+
+- hosts: all
+  name: Play to get content from csv file
+
+  tasks:
+
+    - name: read csv
+      delegate_to: localhost
+      read_csv:
+        path: users.csv
+        skipinitialspace: yes
+      register: users_file # assign output to this variable
+
+    - debug:
+        msg: "Hello, {{ userInfo.first_name }} {{ userInfo.last_name }} : {{ userInfo.email }} : {{ userInfo.username }}"
+      loop: "{{ users_file.list }}"
+      loop_control:
+        loop_var: userInfo
+
+    # generate files for each user <username>.txt using template, and send files to remote machine
+    - name: template for user info
+      template:
+        src: user.j2
+        dest: /home/ubuntu/{{ userInfo.username }}.txt
+      loop: "{{ users_file.list }}"
+      loop_control:
+        loop_var: userInfo
+  

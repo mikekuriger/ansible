@@ -1,0 +1,21 @@
+---
+- name: play to copy files
+  hosts: webservers
+  vars:
+    path_to_folder: "/home/ubuntu/mike/"
+  tasks: 
+    - name: create path
+      file:
+        path: "{{ path_to_folder }}"
+        state: directory
+
+    - name: copy files from list
+      copy: 
+        dest: "{{ path_to_folder }}{{ fileInfo.file_dest }}"
+        src: "{{ fileInfo.file_src }}"
+      loop_control:
+        loop_var: fileInfo
+      loop:
+        - { file_src: "a.txt", file_dest: "a.ini" }
+        - { file_src: "b.txt", file_dest: "b.ini" }
+        - { file_src: "c.txt", file_dest: "c.ini" }

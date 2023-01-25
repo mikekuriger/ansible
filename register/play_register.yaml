@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  name: Play to get content from target server
+
+  tasks:
+  - name: get the value of dbPassword.txt
+    shell: cat /home/ubuntu/myApp/dbPassword.txt
+    register: my_file_content
+      
+#  - debug:
+#      var: my_file_content.stdout
+
+  - name: Send template
+    template:
+      src: final.j2
+      dest: /home/ubuntu/myApp/f.txt

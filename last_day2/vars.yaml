@@ -1,0 +1,7 @@
+---
+
+v1: "Red"
+v2: "Green"
+v3: "Yellow"
+dir_to_be_created: "/home/ubuntu/mike/"
+from_name: "Mike"
