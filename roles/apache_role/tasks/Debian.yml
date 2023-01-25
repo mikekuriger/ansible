@@ -1,0 +1,13 @@
+---
+# debian
+
+- name: Update apt
+  apt:
+    update_cache: yes
+    cache_valid_time: "{{ var_cache_valid_time }}"
+- name: install apache on deb
+  apt:
+    name: "{{ package_apache_name }}"
+    state: present
+  notify:
+    - apache_service_handler

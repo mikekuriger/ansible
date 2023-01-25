@@ -1,0 +1,8 @@
+---
+# handlers file for apache_role
+
+- name: apache_service_handler
+  service:
+    enabled: true
+    state: restarted
+    

@@ -1,0 +1,9 @@
+---
+# redhat
+
+- name: install on redhat
+  package:
+    state: present
+    name: "{{ package_apache_name }}"
+  notify:
+    - apache_service_handler

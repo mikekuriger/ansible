@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  name: Install Apache
+  become: true
+  become_user: root
+
+  roles:
+  #    - role: geerlingguy.apache
+    - role: apache_role
+      html_title: "Mike"

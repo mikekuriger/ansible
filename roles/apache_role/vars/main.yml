@@ -1,0 +1,5 @@
+---
+# vars file for apache_role
+
+template_src: "templates/index.html.j2"
+template_dest: "/var/www/html/index.html"

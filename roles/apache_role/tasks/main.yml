@@ -1,0 +1,26 @@
+---
+# tasks file for apache_role
+
+- name: run all as root
+  become: yes
+  become_user: root
+  block:
+#    # Debian
+#    - name: debian block
+#      when: ansible_os_family == "Debian"
+#      block:
+#        - include_vars: deb.yml
+#        - include_tasks: deb.yml
+#    # RedHat
+#    - name: redhat block
+#      when: ansible_os_family == "RedHat"
+#      block:
+#        - include_vars: red.yml
+#        - include_tasks: red.yml
+      
+      - include_vars: "{{ ansible_os_family }}.yml"
+      - include_tasks: "{{ ansible_os_family }}.yml"
+      - name: push index.html
+        template:
+          src: "{{ template_src }}"
+          dest: "{{ template_dest }}"
