@@ -1,8 +1,0 @@
----
-# vars
-
-api_url: "https://catfact.ninja/fact"
-api_body_format: json
-api_return_content: yes
-motd_template_location: "templates/motd.j2"
-motd_dest_location: "/etc/motd"
