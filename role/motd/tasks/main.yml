@@ -4,7 +4,19 @@
 - name: get fact from api
   uri:
     url: "{{ api_url }}"
-    return_content: yes
-    body_format: json
-  register: motd_api_content
+    return_content: "{{ api_return_content }}"
+    body_format: "{{ api_body_format }}"
+  register: api_result
   run_once: yes
+  delegate_to: localhost
+
+- debug:
+    msg: "{{ api_result.json.fact }}"
+
+- name: push motd
+  template:
+    src: "{{ motd_template_location }}"
+    dest: "{{ motd_dest_location }}"
+    owner: root
+    group: root
+    mode: 0444
