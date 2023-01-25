@@ -1,0 +1,10 @@
+---
+# tasks file for motd_role
+
+- name: get fact from api
+  uri:
+    url: "{{ api_url }}"
+    return_content: yes
+    body_format: json
+  register: motd_api_content
+  run_once: yes

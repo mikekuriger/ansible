@@ -1,0 +1,6 @@
+---
+# vars
+
+api_url: "https://catfact.ninja/fact"
+api_body_format: json
+api_return_content: yes
